@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Tr from "./Tr";
 import "./styles.css";
 
 export default class Shop extends Component {
@@ -14,12 +14,12 @@ export default class Shop extends Component {
   chosen(e) {
     let id = e.target.id;
     let list = this.state.list;
+    list.forEach(item => (item.active = false));
     list[id].active = !list[id].active;
+
     this.setState({
       list
     });
-
-    console.log(list[id].active);
   }
 
   delete(e) {
@@ -30,6 +30,7 @@ export default class Shop extends Component {
     this.setState({
       list: list2
     });
+    console.log(e.target);
   }
 
   render() {
@@ -44,34 +45,17 @@ export default class Shop extends Component {
             <th>Quantity</th>
             <th>Control</th>
           </tr>
-
           {list.map((item, index) => (
-            <tr
-              style={{
-                backgroundColor: item.active ? "blue" : "white"
-              }}
-            >
-              <td id={index} onClick={this.chosen}>
-                {item.name}
-              </td>
-              <td id={index} onClick={this.chosen}>
-                {item.price}
-              </td>
-              <td id={index} onClick={this.chosen}>
-                {item.url}
-              </td>
-              <td id={index} onClick={this.chosen}>
-                {item.quantity}
-              </td>
-              <td>
-                <input
-                  type="button"
-                  value="delete"
-                  id={index}
-                  onClick={this.delete}
-                />
-              </td>
-            </tr>
+            <Tr
+              chosen={this.chosen}
+              id={index}
+              name={item.name}
+              price={item.price}
+              url={item.url}
+              quantity={item.quantity}
+              remove={this.delete}
+              active={item.active}
+            />
           ))}
         </tbody>
       </table>
