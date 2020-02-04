@@ -5,14 +5,13 @@ import Shop from "./App";
 import "./styles.css";
 
 function App() {
-  const data = [
+  /*const data = [
     {
       name: "product1",
       price: "30",
       url: "https://hello.world",
       quantity: "20",
 
-      active: false
     },
     {
       name: "product2",
@@ -20,7 +19,7 @@ function App() {
       url: "https://hello.mate",
       quantity: "40",
 
-      active: false
+    
     },
     {
       name: "product3",
@@ -28,13 +27,13 @@ function App() {
       url: "https://hello.hello",
       quantity: "60",
 
-      active: false
+     
     }
   ];
-
+*/
   return (
     <div className="App">
-      <Shop data={data} />
+      <Shop />
     </div>
   );
 }

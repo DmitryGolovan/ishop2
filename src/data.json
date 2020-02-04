@@ -1,0 +1,20 @@
+[
+  {
+    "name": "product1",
+    "price": "30",
+    "url": "https://hello.world",
+    "quantity": "20"
+  },
+  {
+    "name": "product2",
+    "price": "20",
+    "url": "https://hello.mate",
+    "quantity": "40"
+  },
+  {
+    "name": "product3",
+    "price": "80",
+    "url": "https://hello.hello",
+    "quantity": "60"
+  }
+]
