@@ -61,7 +61,8 @@ export default class Shop extends Component {
     let list2;
     list2 = list.filter(item => item !== list[id]);
     this.setState({
-      list: list2
+      list: list2,
+      activeItemId: null
     });
   }
   edit(e) {
