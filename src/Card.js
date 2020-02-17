@@ -7,8 +7,12 @@ export default function Card({ list, active }) {
         textAlign: "left"
       }}
     >
-      <div style={style}>Name: {list[active].name}</div>
-      <div style={style}>Price: {list[active].price}</div>
+      <div style={style}>
+        Name: {list.map(item => (item.id == active ? item.name : null))}
+      </div>
+      <div style={style}>
+        Price: {list.map(item => (item.id == active ? item.price : null))}
+      </div>
     </div>
   );
 }

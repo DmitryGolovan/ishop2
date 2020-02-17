@@ -25,7 +25,8 @@ export default class Shop extends Component {
       alertText: false,
       alertPrice: false,
       alertUrl: false,
-      alertQuantity: false
+      alertQuantity: false,
+      changed: false
     };
     this.chosen = this.chosen.bind(this);
     this.delete = this.delete.bind(this);
@@ -50,114 +51,102 @@ export default class Shop extends Component {
     if (!addId) {
       this.setState({
         activeItemId: e.target.id,
-        editId: null
+        editId: null,
+        changed: false
       });
     }
+    console.log(this.state.activeItemId);
+    console.log(e.target.id);
   }
 
   delete(e) {
     let list = this.state.list;
     let id = e.target.id;
     let list2;
-    list2 = list.filter(item => item !== list[id]);
+    list2 = list.filter(item => item.id !== parseInt(id));
     this.setState({
       list: list2,
-      activeItemId: null
+      activeItemId: null,
+      changed: false
     });
+    console.log(typeof e.target.id);
   }
   edit(e) {
     this.setState({
       activeItemId: null,
       editId: e.target.id,
-      addId: false
+      addId: false,
+      changed: false
     });
-    console.log(this.state.activeItemId);
+    console.log(this.state.editId);
   }
 
   changeName(e) {
     this.setState({
-      nameText: e.target.value
+      nameText: e.target.value,
+      changed: true
     });
     console.log(this.state.nameText);
   }
   changePrice(e) {
-    this.setState({
-      priceText: e.target.value
-    });
+    let regNum = /^[0-9]+$/;
+    if (e.target.value.match(regNum)) {
+      this.setState({
+        priceText: e.target.value,
+        changed: true,
+        alertPrice: false
+      });
+    } else {
+      this.setState({
+        alertPrice: true
+      });
+    }
   }
   changeUrl(e) {
-    this.setState({
-      urlText: e.target.value
-    });
+    let regUrl = /^((http|https|ftp):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i;
+    if (e.target.value.match(regUrl)) {
+      this.setState({
+        urlText: e.target.value,
+        changed: true,
+        alertUrl: false
+      });
+    } else {
+      this.setState({
+        alertUrl: true
+      });
+    }
   }
   changeQuantity(e) {
-    this.setState({
-      quantityText: e.target.value
-    });
+    let regNum = /^[0-9]+$/;
+    if (e.target.value.match(regNum)) {
+      this.setState({
+        quantityText: e.target.value,
+        changed: true,
+        alertQuantity: false
+      });
+    } else {
+      this.setState({
+        alertQuantity: true
+      });
+    }
   }
 
   editItem() {
     let list = this.state.list;
     let id = this.state.editId;
-    let regNum = /^[0-9]+$/;
-    let regUrl = /^((http|https|ftp):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i;
+    list[id].name = this.state.nameText;
+    list[id].price = this.state.priceText;
+    list[id].url = this.state.urlText;
+    list[id].quantity = this.state.quantityText;
 
-    if (this.state.nameText !== "") {
-      list[id].name = this.state.nameText;
-    }
-    if (this.state.priceText.match(regNum)) {
-      list[id].price = this.state.priceText;
-    }
-    if (this.state.urlText.match(regUrl)) {
-      list[id].url = this.state.urlText;
-    }
-    if (this.state.quantityText.match(regNum)) {
-      list[id].quantity = this.state.quantityText;
-    }
     this.setState({
       list,
       editId: null
     });
-    if (this.state.nameText === "") {
-      this.setState({
-        alertText: true
-      });
-    } else {
-      this.setState({
-        alertText: false,
-        nameText: ""
-      });
-    }
-    if (!this.state.priceText.match(regNum)) {
-      this.setState({
-        alertPrice: true
-      });
-    } else {
-      this.setState({
-        alertPrice: false,
-        priceText: ""
-      });
-    }
-    if (!this.state.urlText.match(regUrl)) {
-      this.setState({
-        alertUrl: true
-      });
-    } else {
-      this.setState({
-        alertUrl: false,
-        urlText: ""
-      });
-    }
-    if (!this.state.quantityText.match(regNum)) {
-      this.setState({
-        alertQuantity: true
-      });
-    } else {
-      this.setState({
-        alertQuantity: false,
-        quantityText: ""
-      });
-    }
+
+    this.setState({
+      changed: false
+    });
   }
   addContent() {
     this.setState({
@@ -167,59 +156,23 @@ export default class Shop extends Component {
     });
   }
   addItem(e) {
-    let regNum = /^[0-9]+$/;
-    let regUrl = /^((http|https|ftp):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i;
-
     let obj = {};
-    if (this.state.nameText !== "") {
-      obj.name = this.state.nameText;
-    } else {
-      this.setState({
-        alertText: true
-      });
-    }
-    if (this.state.priceText.match(regNum)) {
-      obj.price = this.state.priceText;
-    } else {
-      this.setState({
-        alertPrice: true
-      });
-    }
-    if (this.state.urlText.match(regUrl)) {
-      obj.url = this.state.urlText;
-    } else {
-      this.setState({
-        alertUrl: true
-      });
-    }
-    if (this.state.quantityText.match(regNum)) {
-      obj.quantity = this.state.quantityText;
-    } else {
-      this.setState({
-        alertQuantity: true
-      });
-    }
-    if (
-      this.state.nameText !== "" &&
-      this.state.priceText.match(regNum) &&
-      this.state.urlText.match(regUrl) &&
-      this.state.quantityText.match(regNum)
-    ) {
-      this.setState({
-        list: this.state.list.concat(obj),
-        nameText: "",
-        priceText: "",
-        urlText: "",
-        quantityText: "",
-        addId: false,
-        editId: null,
-        alertText: false,
-        alertPrice: false,
-        alertUrl: false,
-        alertQuantity: false
-      });
-    }
+    obj.id = this.state.list[this.state.list.length - 1].id + 1;
+    obj.name = this.state.nameText;
+    obj.price = this.state.priceText;
+    obj.url = this.state.urlText;
+    obj.quantity = this.state.quantityText;
+    this.setState({
+      list: this.state.list.concat(obj),
+      changed: false,
+      addId: false,
+      nameText: "",
+      priceText: "",
+      urlText: "",
+      quantityText: ""
+    });
   }
+
   cancelAdding(e) {
     this.setState({
       addId: false,
@@ -240,7 +193,8 @@ export default class Shop extends Component {
       nameText,
       priceText,
       urlText,
-      quantityText
+      quantityText,
+      changed
     } = this.state;
     const chooseRender = () => {
       if (activeItemId !== null) {
@@ -303,16 +257,17 @@ export default class Shop extends Component {
               <Item
                 chosen={this.chosen}
                 key={index}
-                id={index}
+                id={item.id}
                 name={item.name}
                 price={item.price}
                 url={item.url}
                 quantity={item.quantity}
                 remove={this.delete}
-                active={this.state.activeItemId}
+                active={activeItemId}
                 edit={this.edit}
                 editId={editId}
                 addId={addId}
+                changed={changed}
               />
             ))}
           </tbody>

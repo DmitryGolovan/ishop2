@@ -27,39 +27,33 @@ export default function Edit({
     >
       <div style={style}>
         <div>Name</div>
-        <input
-          type="text"
-          value={nameText ? nameText : list[editId].name}
-          onChange={e => changeName(e)}
-        />
-        {alertText ? <div>Please, write something here</div> : null}
+        <input type="text" value={nameText} onChange={e => changeName(e)} />
+        {alertText ? (
+          <div>Please, write something here. Value must be a string</div>
+        ) : null}
       </div>
       <div style={style}>
         <div>Price</div>
-        <input
-          type="text"
-          value={priceText ? priceText : list[editId].price}
-          onChange={e => changePrice(e)}
-        />
-        {alertPrice ? <div>Please, write something here</div> : null}
+        <input type="text" value={priceText} onChange={e => changePrice(e)} />
+        {alertPrice ? (
+          <div>Please, write something here. Value must be a number</div>
+        ) : null}
       </div>
       <div style={style}>
         URL
-        <input
-          type="text"
-          value={urlText ? urlText : list[editId].url}
-          onChange={e => changeUrl(e)}
-        />
-        {alertUrl ? <div>Please, write something here</div> : null}
+        <input type="text" value={urlText} onChange={e => changeUrl(e)} />
+        {alertUrl ? <div>Paste a real URL</div> : null}
       </div>
       <div style={style}>
         Quantity
         <input
           type="text"
-          value={quantityText ? quantityText : list[editId].quantity}
+          value={quantityText}
           onChange={e => changeQuantity(e)}
         />
-        {alertQuantity ? <div>Please, write something here</div> : null}
+        {alertQuantity ? (
+          <div>Please, write something here. Value must be a number</div>
+        ) : null}
       </div>
       <div>
         <input

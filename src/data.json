@@ -3,18 +3,21 @@
     "name": "product1",
     "price": "30",
     "url": "https://hello.world",
-    "quantity": "20"
+    "quantity": "20",
+    "id": 100
   },
   {
     "name": "product2",
     "price": "20",
     "url": "https://hello.mate",
-    "quantity": "40"
+    "quantity": "40",
+    "id": 101
   },
   {
     "name": "product3",
     "price": "80",
     "url": "https://hello.hello",
-    "quantity": "60"
+    "quantity": "60",
+    "id": 102
   }
 ]

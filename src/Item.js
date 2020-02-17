@@ -11,7 +11,8 @@ export default function Item({
   active,
   edit,
   editId,
-  addId
+  addId,
+  changed
 }) {
   return (
     <tr
@@ -44,7 +45,7 @@ export default function Item({
           type="button"
           value="edit"
           onClick={e => edit(e)}
-          disabled={addId}
+          disabled={addId || changed}
         />
       </td>
     </tr>
