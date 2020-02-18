@@ -1,25 +1,24 @@
 import React, { Component } from "react";
-import Tr from "./Tr";
+import Item from "./Item";
 import "./styles.css";
 
 export default class Shop extends Component {
   constructor({ data }) {
-    super({ data });
+    super();
     this.state = {
-      list: data
+      list: data,
+      activeItemId:null
     };
     this.chosen = this.chosen.bind(this);
     this.delete = this.delete.bind(this);
   }
   chosen(e) {
-    let id = e.target.id;
-    let list = this.state.list;
-    list.forEach(item => (item.active = false));
-    list[id].active = !list[id].active;
-
     this.setState({
-      list
-    });
+      activeItemId: e.target.id
+    })
+    console.log(typeof this.state.activeItemId);
+    console.log(typeof e.target.id)
+   
   }
 
   delete(e) {
@@ -46,16 +45,21 @@ export default class Shop extends Component {
             <th>Control</th>
           </tr>
           {list.map((item, index) => (
-            <Tr
+            
+            <Item
+            
               chosen={this.chosen}
+              key = {index}
               id={index}
               name={item.name}
               price={item.price}
               url={item.url}
               quantity={item.quantity}
               remove={this.delete}
-              active={item.active}
+              active={this.state.activeItemId}
+              
             />
+            
           ))}
         </tbody>
       </table>

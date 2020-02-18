@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Tr({
+export default function Item({
+  
   remove,
   chosen,
   name,
@@ -12,9 +13,9 @@ export default function Tr({
 }) {
   return (
     <tr
-      style={{
-        backgroundColor: active ? "blue" : "white"
-      }}
+     style = {{
+       backgroundColor:id==active?'tomato':'white'
+     }}
     >
       <td id={id} onClick={e => chosen(e)}>
         {name}
@@ -32,5 +33,7 @@ export default function Tr({
         <input id={id} type="button" value="delete" onClick={e => remove(e)} />
       </td>
     </tr>
-  );
+   
+  
+  )
 }

@@ -12,7 +12,6 @@ function App() {
       url: "https://hello.world",
       quantity: "20",
 
-      active: false
     },
     {
       name: "product2",
@@ -20,7 +19,7 @@ function App() {
       url: "https://hello.mate",
       quantity: "40",
 
-      active: false
+    
     },
     {
       name: "product3",
@@ -28,7 +27,7 @@ function App() {
       url: "https://hello.hello",
       quantity: "60",
 
-      active: false
+     
     }
   ];
 
